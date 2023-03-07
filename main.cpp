@@ -14,6 +14,8 @@
 #define NTextures 1
 GLuint	texture[NTextures];
 
+bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
+
 char* filename = "img/tablero_pacman.bmp";
 
 //Variables dimensiones de la pantalla
@@ -36,6 +38,13 @@ float UP_Y=1;
 float UP_Z=0;
 
 Pacman *player;
+
+void keyOperations (void) {  
+   if (keyStates['w']) player->changeDirection(0); 
+   if (keyStates['d']) player->changeDirection(1); 
+   if (keyStates['s']) player->changeDirection(2);
+   if (keyStates['a']) player->changeDirection(3);
+}  
 
 void loadTextureFromFile(char *filename, int id)
 {
@@ -80,6 +89,7 @@ void init()
 
 void display()
 {
+   keyOperations();  
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    //activa la textura
    glEnable(GL_TEXTURE_2D);
@@ -121,33 +131,13 @@ void idle()
    display();
 }
 
-void keyboard(unsigned char key, int x, int y)
-{
-   switch(key)
-   {//SOLID
-   case 's':
-   case 'S':
-      glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-      glShadeModel(GL_FLAT);
-   break;
-   //INTERPOL
-   case 'i':
-   case 'I':
-      glShadeModel(GL_SMOOTH);
-      glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-   break;
-
-   case 'w':
-   case 'W':
-      glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-   break;
-
-   case 27:   // escape
-   exit(0);
-   break;
-   }
-   glutPostRedisplay();
-}
+void keyPressed (unsigned char key, int x, int y) {  
+   keyStates[key] = true; // Set the state of the current key to pressed  
+}  
+  
+void keyUp (unsigned char key, int x, int y) {  
+   keyStates[key] = false; // Set the state of the current key to not pressed  
+}  
 
 int main(int argc, char **argv)
 {
@@ -159,7 +149,8 @@ int main(int argc, char **argv)
    init();
    glutDisplayFunc(display);
    glutIdleFunc(idle);
-   glutKeyboardFunc(keyboard);
+   glutKeyboardFunc(keyPressed); // Tell GLUT to use the method "keyPressed" for key presses  
+   glutKeyboardUpFunc(keyUp); // Tell GLUT to use the method "keyUp" for key up events  
    glutMainLoop();
    return 0;
 }
