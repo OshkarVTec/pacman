@@ -16,7 +16,8 @@ GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filename = "img/tablero_pacman.bmp";
+char* filenames[NTextures] = {"img/tablero_pacman1.bmp"};
+
 
 //Variables dimensiones de la pantalla
 int WIDTH=600;
@@ -76,7 +77,10 @@ void init()
    gluOrtho2D(-300,300,-300,300);
 
    //Texture
-   loadTextureFromFile( filename , 0);
+   for (int i = 0; i < NTextures; i++){
+      loadTextureFromFile( filenames[i] , 0);
+   }
+
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glShadeModel(GL_SMOOTH);
 
@@ -118,12 +122,12 @@ void display()
 
    glEnd();
 
+   glBindTexture(GL_TEXTURE_2D, texture[1]);
    glColor3f(1.0, 0.0, 0.0);
    player->draw();
    player->update();
-
-   glFlush();
    glDisable(GL_TEXTURE_2D);
+   glFlush();
 }
 
 void idle()
