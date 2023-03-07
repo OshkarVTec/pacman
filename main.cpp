@@ -87,7 +87,7 @@ void init()
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
    glClearColor(0,0,0,0);
-   player = new Pacman(300, 0.1);
+   player = new Pacman(300, 0.05);
    srand(time(nullptr));
 }
 
