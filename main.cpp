@@ -5,8 +5,15 @@
 #endif
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <random>
 #include <iomanip>
+#include "RgbImage.h"
+
+#define NTextures 1
+GLuint	texture[NTextures];
+
+char* filename = "img/tablero_pacman.bmp";
 
 //Variables dimensiones de la pantalla
 int WIDTH=600;
@@ -27,11 +34,39 @@ float UP_X=0;
 float UP_Y=1;
 float UP_Z=0;
 
+void loadTextureFromFile(char *filename, int id)
+{
+	glClearColor (0.0, 0.0, 0.0, 0.0);
+	glShadeModel(GL_FLAT);
+	glEnable(GL_DEPTH_TEST);
+
+	RgbImage theTexMap( filename );
+
+    //generate an OpenGL texture ID for this texture
+    glGenTextures(1, &texture[id]);
+    //bind to the new texture ID
+    glBindTexture(GL_TEXTURE_2D, texture[id]);
+
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, theTexMap.GetNumCols(), theTexMap.GetNumRows(), 0,
+                     GL_RGB, GL_UNSIGNED_BYTE, theTexMap.ImageData());
+    theTexMap.Reset();
+}
+
 void init()
 {
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
    gluOrtho2D(-300,300,-300,300);
+
+   //Texture
+   loadTextureFromFile( filename , 0);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glShadeModel(GL_SMOOTH);
 
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
@@ -41,18 +76,36 @@ void init()
 
 void display()
 {
-   //Cuadrado *aux;
-   glClear(GL_COLOR_BUFFER_BIT);
-   glColor3f(0.5, 0.5, 0.5);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   //activa la textura
+   glEnable(GL_TEXTURE_2D);
+   glBindTexture(GL_TEXTURE_2D, texture[0]);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-   glColor3f(1.0, 0.0, 0.0);
-/*    for(i = 0; i < NObjetos; i++){
-      aux = (Cuadrado *)objetos[i];
-      aux->draw();
-      aux->update();
-   } */
+   //activa la textura
+   glEnable(GL_TEXTURE_2D);
+   glBindTexture(GL_TEXTURE_2D, texture[0]);
+
+
+   glBegin(GL_QUADS);
+	float a = 1.0f;
+
+   glTexCoord2f(0.0, 0.0);
+   glVertex3f(-300.0, -300.0, 0.0);
+
+   glTexCoord2f(0.0, 1.0);
+   glVertex3f(-300.0, 300.0, 0.0);
+
+   glTexCoord2f(1.0, 1.0);
+   glVertex3f(300.0, 300.0, 0.0);
+
+   glTexCoord2f(1.0, 0.0);
+   glVertex3f(300.0, -300.0, 0.0);
+
+   glEnd();
 
    glFlush();
+	usleep(1000);
 }
 
 void idle()
