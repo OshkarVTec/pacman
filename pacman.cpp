@@ -9,8 +9,8 @@ Pacman::Pacman(int dim, float vel)
     Position[0] = 0;
     Position[1] = 0;
     //Se inicializa el vector de direccion con un valor aleatorio
-    Direction[0] = rand();
-    Direction[1] = rand();
+    Direction[0] = 1;
+    Direction[1] = 0;
     //Se normaliza el vector de direccion
     float m = sqrt(Direction[0]*Direction[0] + Direction[1]*Direction[1]);
     Direction[0] /= m;
@@ -43,14 +43,8 @@ void Pacman::draw()
     glPopMatrix();
 }
 
-void Pacman::update(int dir)
+void Pacman::update()
 {
-   switch(dir){
-      case 0: Direction[0] = 0; Direction[1] = 1; break;
-      case 1: Direction[0] = 1; Direction[1] = 0; break;
-      case 2: Direction[0] = 0; Direction[1] = -1; break;
-      case 3: Direction[0] = -1; Direction[1] = 0; break;
-   }
     float new_x = Position[0] + Direction[0];
     float new_y = Position[1] + Direction[1];
 
@@ -72,4 +66,13 @@ void Pacman::update(int dir)
 
     //cout << "X=" << Position[0] << "; Y= " << Position[1] << endl;
 
+}
+
+void Pacman::changeDirection(int dir){
+   switch(dir){
+      case 0: Direction[0] = 0; Direction[1] = 1; break;
+      case 1: Direction[0] = 1; Direction[1] = 0; break;
+      case 2: Direction[0] = 0; Direction[1] = -1; break;
+      case 3: Direction[0] = -1; Direction[1] = 0; break;
+   }
 }

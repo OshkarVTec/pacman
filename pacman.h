@@ -13,7 +13,8 @@ class Pacman
         Pacman(int, float);
         ~Pacman();
         void draw();
-        void update(int);
+        void update();
+        void changeDirection(int);
     protected:
 
     private:

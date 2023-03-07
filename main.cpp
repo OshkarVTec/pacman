@@ -110,7 +110,7 @@ void display()
 
    glColor3f(1.0, 0.0, 0.0);
    player->draw();
-   player->update(0);
+   player->update();
 
    glFlush();
 	usleep(1000);
