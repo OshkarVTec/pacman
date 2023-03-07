@@ -103,7 +103,7 @@ void display()
 
    glBegin(GL_QUADS);
 	float a = 1.0f;
-   glColor3f(0.0, 0.0, 0.0);
+   glColor3f(1.0, 1.0, 1.0);
    glTexCoord2f(0.0, 0.0);
    glVertex3f(-300.0, -300.0, 0.0);
 
@@ -123,7 +123,7 @@ void display()
    player->update();
 
    glFlush();
-	usleep(1000);
+   glDisable(GL_TEXTURE_2D);
 }
 
 void idle()
@@ -142,7 +142,7 @@ void keyUp (unsigned char key, int x, int y) {
 int main(int argc, char **argv)
 {
    glutInit(&argc, argv);
-   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
    glutInitWindowPosition(100, 100);
    glutInitWindowSize(WIDTH, HEIGTH);
    glutCreateWindow("Pacman");

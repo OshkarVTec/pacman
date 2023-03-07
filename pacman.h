@@ -31,4 +31,5 @@ class Pacman
         int DimBoard;
         float radio;
         float Scale;
+        float vel;
 };
