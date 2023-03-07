@@ -9,6 +9,7 @@
 #include <random>
 #include <iomanip>
 #include "RgbImage.h"
+#include "pacman.h"
 
 #define NTextures 1
 GLuint	texture[NTextures];
@@ -33,6 +34,8 @@ float CENTER_Z=0;
 float UP_X=0;
 float UP_Y=1;
 float UP_Z=0;
+
+Pacman *player;
 
 void loadTextureFromFile(char *filename, int id)
 {
@@ -71,6 +74,7 @@ void init()
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
    glClearColor(0,0,0,0);
+   player = new Pacman(100, 0.1);
    srand(time(nullptr));
 }
 
@@ -89,7 +93,7 @@ void display()
 
    glBegin(GL_QUADS);
 	float a = 1.0f;
-
+   glColor3f(0.0, 0.0, 0.0);
    glTexCoord2f(0.0, 0.0);
    glVertex3f(-300.0, -300.0, 0.0);
 
@@ -103,6 +107,10 @@ void display()
    glVertex3f(300.0, -300.0, 0.0);
 
    glEnd();
+
+   glColor3f(1.0, 0.0, 0.0);
+   player->draw();
+   player->update();
 
    glFlush();
 	usleep(1000);
