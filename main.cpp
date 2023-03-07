@@ -16,7 +16,7 @@ GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filenames[NTextures] = {"img/tablero_pacman1.bmp"};
+char* filenames[NTextures] = {"img/pacmanbg1.bmp"};
 
 
 //Variables dimensiones de la pantalla
