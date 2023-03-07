@@ -43,8 +43,14 @@ void Pacman::draw()
     glPopMatrix();
 }
 
-void Pacman::update()
+void Pacman::update(int dir)
 {
+   switch(dir){
+      case 0: Direction[0] = 0; Direction[1] = 1; break;
+      case 1: Direction[0] = 1; Direction[1] = 0; break;
+      case 2: Direction[0] = 0; Direction[1] = -1; break;
+      case 3: Direction[0] = -1; Direction[1] = 0; break;
+   }
     float new_x = Position[0] + Direction[0];
     float new_y = Position[1] + Direction[1];
 
