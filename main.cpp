@@ -95,18 +95,15 @@ void display()
 {
    keyOperations();  
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   //activa la textura
+
+   glColor3f(1.0, 0.0, 0.0);
+   player->draw();
+   player->update();
+
+      //activa la textura
    glEnable(GL_TEXTURE_2D);
    glBindTexture(GL_TEXTURE_2D, texture[0]);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-   //activa la textura
-   glEnable(GL_TEXTURE_2D);
-   glBindTexture(GL_TEXTURE_2D, texture[0]);
-
-
    glBegin(GL_QUADS);
-	float a = 1.0f;
    glColor3f(1.0, 1.0, 1.0);
    glTexCoord2f(0.0, 0.0);
    glVertex3f(-300.0, -300.0, 0.0);
@@ -122,10 +119,6 @@ void display()
 
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.0, 0.0, 0.0);
-   player->draw();
-   player->update();
    glDisable(GL_TEXTURE_2D);
    glFlush();
 }
@@ -146,7 +139,7 @@ void keyUp (unsigned char key, int x, int y) {
 int main(int argc, char **argv)
 {
    glutInit(&argc, argv);
-   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
+   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
    glutInitWindowPosition(100, 100);
    glutInitWindowSize(WIDTH, HEIGTH);
    glutCreateWindow("Pacman");
