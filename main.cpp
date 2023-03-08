@@ -11,12 +11,12 @@
 #include "RgbImage.h"
 #include "pacman.h"
 
-#define NTextures 1
+#define NTextures 2
 GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filenames[NTextures] = {"img/pacmanbg1.bmp"};
+char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/pacmanbg1.bmp"};
 
 
 //Variables dimensiones de la pantalla
@@ -96,12 +96,13 @@ void display()
    keyOperations();  
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+   glEnable(GL_TEXTURE_2D);
+   glBindTexture(GL_TEXTURE_2D, texture[1]);
+
    glColor3f(1.0, 0.0, 0.0);
    player->draw();
    player->update();
 
-      //activa la textura
-   glEnable(GL_TEXTURE_2D);
    glBindTexture(GL_TEXTURE_2D, texture[0]);
    glBegin(GL_QUADS);
    glColor3f(1.0, 1.0, 1.0);
