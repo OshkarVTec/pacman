@@ -16,7 +16,7 @@ GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/pacmanbg1.bmp"};
+char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/kurbo.bmp"};
 
 
 //Variables dimensiones de la pantalla
@@ -99,7 +99,7 @@ void display()
    glEnable(GL_TEXTURE_2D);
    glBindTexture(GL_TEXTURE_2D, texture[1]);
 
-   glColor3f(1.0, 0.0, 0.0);
+
    player->draw();
    player->update();
 

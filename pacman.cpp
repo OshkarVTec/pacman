@@ -20,7 +20,7 @@ Pacman::Pacman(int dim, float velocity)
     Direction[0] *= vel;
     Direction[1] *= vel;
 
-    Scale = 20;
+    Scale = 1;
 
 }
 
@@ -36,10 +36,20 @@ void Pacman::draw()
     glScaled(Scale,Scale,0);
     //Se dibuja el Pacman
     glBegin(GL_QUADS);
-        for(int i=0; i< 4; i++){
-            glVertex2iv(vertices[i]);
-        }
-    glEnd();
+   glColor3f(1.0, 1.0, 1.0);
+   glTexCoord2f(0.0, 0.0);
+   glVertex3f(-15.0, -15.0, 0.0);
+
+   glTexCoord2f(0.0, 1.0);
+   glVertex3f(-15.0, 15.0, 0.0);
+
+   glTexCoord2f(1.0, 1.0);
+   glVertex3f(15.0, 15.0, 0.0);
+
+   glTexCoord2f(1.0, 0.0);
+   glVertex3f(15.0, -15.0, 0.0);
+
+   glEnd();
 
     glPopMatrix();
 }
