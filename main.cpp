@@ -78,7 +78,7 @@ void init()
 
    //Texture
    for (int i = 0; i < NTextures; i++){
-      loadTextureFromFile( filenames[i] , 0);
+      loadTextureFromFile( filenames[i] , i);
    }
 
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
