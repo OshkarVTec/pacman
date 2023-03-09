@@ -25,6 +25,9 @@ class Pacman
             1,0
         };
 
+        bool available[4] = {true, true, true, true}; //false when there is a wall on that direction
+        //
+
         //Vector de direccion
         float Position[2] = {0.0, 5.0};
         float Direction[2] = {0.0, 5.0};

@@ -80,10 +80,13 @@ void Pacman::update()
 }
 
 void Pacman::changeDirection(int dir){
-   switch(dir){
-      case 0: Direction[0] = 0 * vel; Direction[1] = 1 * vel; break;
-      case 1: Direction[0] = 1 * vel; Direction[1] = 0 * vel; break;
-      case 2: Direction[0] = 0 * vel; Direction[1] = -1 * vel; break;
-      case 3: Direction[0] = -1 * vel; Direction[1] = 0 * vel; break;
-   }
+    if(available[dir]){
+        switch(dir){
+
+            case 0: Direction[0] = 0 * vel; Direction[1] = 1 * vel; break;
+            case 1: Direction[0] = 1 * vel; Direction[1] = 0 * vel; break;
+            case 2: Direction[0] = 0 * vel; Direction[1] = -1 * vel; break;
+            case 3: Direction[0] = -1 * vel; Direction[1] = 0 * vel; break;
+        }
+    }
 }
