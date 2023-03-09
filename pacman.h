@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
+#include <vector>
 #pragma once
 
 using namespace std;
@@ -15,6 +16,7 @@ class Pacman
         void draw();
         void update();
         void changeDirection(int);
+        void movementConstraints(vector<vector<int>>, int, int);
     protected:
 
     private:

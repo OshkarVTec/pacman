@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <random>
 #include <iomanip>
+#include <vector>
 #include "RgbImage.h"
 #include "pacman.h"
 
