@@ -10,9 +10,10 @@ Pacman::Pacman(int dim, float velocity)
     //Se inicializa una posicion aleatoria dentro del tablero
     Position[0] = 0;
     Position[1] = 0;
-    //Se inicializa el vector de direccion con un valor aleatorio
+    //Se inicializa el vector de direccion
     Direction[0] = 1;
     Direction[1] = 0;
+    currDir = 1;
     //Se normaliza el vector de direccion
     float m = sqrt(Direction[0]*Direction[0] + Direction[1]*Direction[1]);
     Direction[0] /= m;
@@ -77,18 +78,22 @@ void Pacman::update()
     }
 
     //cout << "X=" << Position[0] << "; Y= " << Position[1] << endl;
+    if(!available[currDir]){
+        Direction[0] = 0;
+        Direction[1] = 0;
+    }
 
 }
 
 void Pacman::changeDirection(int dir){
     if(available[dir]){
         switch(dir){
-
             case 0: Direction[0] = 0 * vel; Direction[1] = 1 * vel; break;
             case 1: Direction[0] = 1 * vel; Direction[1] = 0 * vel; break;
             case 2: Direction[0] = 0 * vel; Direction[1] = -1 * vel; break;
             case 3: Direction[0] = -1 * vel; Direction[1] = 0 * vel; break;
         }
+        currDir = dir;
     }
 }
 

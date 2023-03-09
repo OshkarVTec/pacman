@@ -33,6 +33,7 @@ class Pacman
         //Vector de direccion
         float Position[2] = {0.0, 5.0};
         float Direction[2] = {0.0, 5.0};
+        int currDir; //current direction
         int DimBoard;
         float radio;
         float Scale;
