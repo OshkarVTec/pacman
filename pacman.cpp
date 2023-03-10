@@ -98,9 +98,9 @@ void Pacman::changeDirection(int dir){
 }
 
 void Pacman::movementConstraints(vector<vector<int>> matrix, int WIDTH, int  HEIGTH){ //x and y are grid position
-	int x = (Position[0]*matrix.size()/WIDTH);
-	int y = (Position[1]*matrix.size()/HEIGTH);
-    //cout << "x: " << x << " y: " << y << endl;
+	int x = (Position[1]*matrix.size()/HEIGTH);
+	int y = (Position[0]*matrix.size()/WIDTH);
+    cout << "x: " << x << " y: " << y << endl;
 	switch(matrix[x][y]){
 		case 0: available[0] = true; available[1] = true; available[2] = false; available[4] = false; break;
 	}

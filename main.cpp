@@ -3,7 +3,7 @@
 #else
 #include <GL/glut.h>
 #endif
-
+#include <bits/stdc++.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <random>
@@ -11,6 +11,7 @@
 #include <vector>
 #include "RgbImage.h"
 #include "pacman.h"
+using namespace std;
 
 #define NTextures 2
 GLuint	texture[NTextures];
@@ -20,7 +21,6 @@ bool* keyStates = new bool[256]; // Create an array of boolean values of length 
 char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/kurbo.bmp"};
 
 vector<vector<int>> matrix = {{1,1,1},{1,1,1},{1,1,1}};
-
 
 //Variables dimensiones de la pantalla
 int WIDTH=600;
@@ -75,6 +75,7 @@ void loadTextureFromFile(char *filename, int id)
 
 void init()
 {
+   reverse(matrix.begin(), matrix.end()); //Map to the position
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
    gluOrtho2D(0,600,0,600);
