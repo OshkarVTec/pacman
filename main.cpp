@@ -19,6 +19,8 @@ bool* keyStates = new bool[256]; // Create an array of boolean values of length 
 
 char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/kurbo.bmp"};
 
+vector<vector<int>> matrix = {{1,1,1},{1,1,1},{1,1,1}};
+
 
 //Variables dimensiones de la pantalla
 int WIDTH=600;
@@ -75,7 +77,7 @@ void init()
 {
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluOrtho2D(-300,300,-300,300);
+   gluOrtho2D(0,600,0,600);
 
    //Texture
    for (int i = 0; i < NTextures; i++){
@@ -108,16 +110,16 @@ void display()
    glBegin(GL_QUADS);
    glColor3f(1.0, 1.0, 1.0);
    glTexCoord2f(0.0, 0.0);
-   glVertex3f(-300.0, -300.0, 0.0);
+   glVertex3f(0.0, 0.0, 0.0);
 
    glTexCoord2f(0.0, 1.0);
-   glVertex3f(-300.0, 300.0, 0.0);
+   glVertex3f(0.0, 600.0, 0.0);
 
    glTexCoord2f(1.0, 1.0);
-   glVertex3f(300.0, 300.0, 0.0);
+   glVertex3f(600.0, 600.0, 0.0);
 
    glTexCoord2f(1.0, 0.0);
-   glVertex3f(300.0, -300.0, 0.0);
+   glVertex3f(600.0, 0.0, 0.0);
 
    glEnd();
 
