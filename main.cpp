@@ -90,7 +90,7 @@ void init()
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
    glClearColor(0,0,0,0);
-   player = new Pacman(300, 0.05);
+   player = new Pacman(600, 0.05);
    srand(time(nullptr));
 }
 
@@ -105,6 +105,7 @@ void display()
 
    player->draw();
    player->update();
+   player->movementConstraints(matrix,HEIGTH, WIDTH);
 
    glBindTexture(GL_TEXTURE_2D, texture[0]);
    glBegin(GL_QUADS);
