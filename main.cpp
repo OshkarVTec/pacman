@@ -18,7 +18,7 @@ GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/kurbo.bmp"};
+char* filenames[NTextures] = {"img/tablero_recortado.bmp","img/kurbo.bmp"};
 
 vector<vector<int>> matrix = {{1,1,1},{1,1,1},{1,1,1}};
 

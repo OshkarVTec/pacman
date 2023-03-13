@@ -103,5 +103,7 @@ void Pacman::movementConstraints(vector<vector<int>> matrix, int WIDTH, int  HEI
     cout << "x: " << x << " y: " << y << endl;
 	switch(matrix[x][y]){
 		case 0: available[0] = true; available[1] = true; available[2] = false; available[4] = false; break;
+        case 1: available[0] = false; available[1] = true; available[2] = false; available[4] = false; break;
+        
 	}
 }
