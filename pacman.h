@@ -16,7 +16,7 @@ class Pacman
         void draw();
         void update();
         void changeDirection(int);
-        void movementConstraints(vector<vector<int>>, int, int);
+        void movementConstraints(vector<vector<int>>&, int, int);
     protected:
 
     private:
