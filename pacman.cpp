@@ -100,10 +100,20 @@ void Pacman::changeDirection(int dir){
 void Pacman::movementConstraints(vector<vector<int>> &matrix, int WIDTH, int  HEIGTH){ //x and y are grid position
 	int x = (Position[1]*matrix.size()/HEIGTH);
 	int y = (Position[0]*matrix.size()/WIDTH);
-    cout << "x: " << x << " y: " << y << endl;
+    //cout << "x: " << x << " y: " << y << endl;
 	switch(matrix[x][y]){
-		case 0: available[0] = true; available[1] = true; available[2] = false; available[4] = false; break;
-        case 1: available[0] = false; available[1] = true; available[2] = false; available[4] = false; break;
-        
+		case 0: available[0] = true; available[1] = true; available[2] = false; available[3] = false; break;
+        case 1: available[0] = true; available[1] = true; available[2] = true; available[3] = true; break;
+        case 2: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 3: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 4: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 5: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 6: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 7: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 8: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 9: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 10: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 11: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 12: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
 	}
 }

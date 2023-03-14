@@ -1,3 +1,4 @@
+//g++ main.cpp pacman.cpp RgbImage.cpp -lGL -lGLU -lglut -o output
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -20,7 +21,7 @@ bool* keyStates = new bool[256]; // Create an array of boolean values of length 
 
 char* filenames[NTextures] = {"img/tablero_recortado.bmp","img/kurbo.bmp"};
 
-vector<vector<int>> matrix = {{1,1,1},{1,1,1},{1,1,1}};
+vector<vector<int>> matrix = {{1,1,1}, {1,1,1},{1,1,1}};
 
 //Variables dimensiones de la pantalla
 int WIDTH=600;
