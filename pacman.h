@@ -18,8 +18,6 @@ class Pacman
         void changeDirection(int);
         void movementConstraints(vector<vector<int>>&, int, int);
     protected:
-
-    private:
         int vertices[4][2] = {
             1,1,
             0,1,
