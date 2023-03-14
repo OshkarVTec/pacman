@@ -103,17 +103,15 @@ void Pacman::movementConstraints(vector<vector<int>> &matrix, int WIDTH, int  HE
     //cout << "x: " << x << " y: " << y << endl;
 	switch(matrix[x][y]){
 		case 0: available[0] = true; available[1] = true; available[2] = false; available[3] = false; break;
-        case 1: available[0] = true; available[1] = true; available[2] = true; available[3] = true; break;
-        case 2: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 3: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 4: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 5: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 6: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 7: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 8: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 9: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 10: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 11: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
-        case 12: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+        case 1: available[0] = false; available[1] = false; available[2] = true; available[3] = true; break;
+        case 2: available[0] = false; available[1] = true; available[2] = true; available[3] = false; break;
+        case 3: available[0] = true; available[1] = false; available[2] = false; available[3] = true; break;
+        case 4: available[0] = false; available[1] = true; available[2] = true; available[3] = true; break;
+        case 5: available[0] = true; available[1] = true; available[2] = false; available[3] = true; break;
+        case 6: available[0] = true; available[1] = false; available[2] = true; available[3] = true; break;
+        case 7: available[0] = true; available[1] = true; available[2] = true; available[3] = false; break;
+        case 8: available[0] = false; available[1] = true; available[2] = false; available[3] = true; break;
+        case 9: available[0] = true; available[1] = false; available[2] = true; available[3] = false; break;
+        case 10: available[0] = true; available[1] = true; available[2] = true; available[3] = true; break;
 	}
 }
