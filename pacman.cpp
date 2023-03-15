@@ -1,15 +1,15 @@
 #include "pacman.h"
 #include <vector>
 
-Pacman::Pacman(int dim, float velocity)
+Pacman::Pacman(int dim, float velocity, int pos0, int pos1)
 {
     DimBoard = dim;
     vel = velocity;
     int c;
 
     //Se inicializa una posicion aleatoria dentro del tablero
-    Position[0] = 20;
-    Position[1] = 22;
+    Position[0] = pos0;
+    Position[1] = pos1;
     //Se inicializa el vector de direccion
     Direction[0] = 1;
     Direction[1] = 0;

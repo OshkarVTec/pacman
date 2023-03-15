@@ -11,7 +11,7 @@ using namespace std;
 class Pacman
 {
     public:
-        Pacman(int, float);
+        Pacman(int, float, int, int);
         ~Pacman();
         void draw();
         void update();
