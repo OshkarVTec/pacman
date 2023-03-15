@@ -14,6 +14,6 @@ class Ghost : public Pacman{
    int cell_type;
    public:
    using Pacman::Pacman;
-
+   void movementConstraints(vector<vector<int>>&, int, int);
    void update();
 };
