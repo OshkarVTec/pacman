@@ -25,12 +25,21 @@ void Ghost::update(){
         Direction[1] = 0;
         currDir = -1;
     }
-    if(currDir == -1){
+
+    if(currDir == -1 || cell_type == 10 && counter > 500){
         int newDir = (rand() % 4);
         changeDirection(newDir);
-        cout << currDir << endl;
+        counter = 0;
+        //cout << currDir << endl;
     }
-
+    if(cell_type == 10){
+        flag = true;
+        counter++;
+    } 
+    else{
+        flag = false;
+        counter = 0;
+    } 
 }
 
 void Ghost::movementConstraints(vector<vector<int>> &matrix, int WIDTH, int  HEIGTH){ //x and y are grid position
@@ -50,5 +59,14 @@ void Ghost::movementConstraints(vector<vector<int>> &matrix, int WIDTH, int  HEI
         case 8: available[0] = false; available[1] = true; available[2] = false; available[3] = true; break;
         case 9: available[0] = true; available[1] = false; available[2] = true; available[3] = false; break;
         case 10: available[0] = true; available[1] = true; available[2] = true; available[3] = true; break;
+        case 11: available[0] = false; available[1] = false; available[2] = false; available[3] = true; break;
+        case 12: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
 	}
+        switch(currDir){
+        case 0: available[2] = false;break;
+        case 1: available[3] = false;break;
+        case 2: available[0] = false;break;
+        case 3: available[1] = false;break;
+    }
+    cell_type = matrix[x][y];
 }

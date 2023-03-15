@@ -114,6 +114,8 @@ void Pacman::movementConstraints(vector<vector<int>> &matrix, int WIDTH, int  HE
         case 8: available[0] = false; available[1] = true; available[2] = false; available[3] = true; break;
         case 9: available[0] = true; available[1] = false; available[2] = true; available[3] = false; break;
         case 10: available[0] = true; available[1] = true; available[2] = true; available[3] = true; break;
+        case 11: available[0] = false; available[1] = false; available[2] = false; available[3] = true; break;
+        case 12: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
 	}
     switch(currDir){
         case 0: available[2] = true;break;
