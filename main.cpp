@@ -128,7 +128,7 @@ void init()
    glLoadIdentity();
    glClearColor(0,0,0,0);
    player = new Pacman(600, 0.05, 20, 22);
-   ghost1 = new Ghost(600,0.5, 20,200);
+   ghost1 = new Ghost(600,0.05, 70,200);
    srand(time(nullptr));
 }
 
@@ -144,7 +144,9 @@ void display()
    player->draw();
    player->update();
    player->movementConstraints(matrix,HEIGTH, WIDTH);
-
+   ghost1->draw();
+   ghost1->update();
+   ghost1->movementConstraints(matrix,HEIGTH, WIDTH);
 
    glBindTexture(GL_TEXTURE_2D, texture[0]);
    glBegin(GL_QUADS);
@@ -182,6 +184,7 @@ void keyUp (unsigned char key, int x, int y) {
 
 int main(int argc, char **argv)
 {
+   srand((unsigned) time(NULL));
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
    glutInitWindowPosition(100, 100);
