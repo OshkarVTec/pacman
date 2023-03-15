@@ -9,9 +9,10 @@
 
 using namespace std;
 
-class Fantasma : public Pacman{
+class Ghost : public Pacman{
    private:
    int cell_type;
    public:
+   Ghost(int, float, int, int);
    void update();
 };
