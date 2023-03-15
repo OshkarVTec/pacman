@@ -32,7 +32,7 @@ void Ghost::update(){
         counter = 0;
         //cout << currDir << endl;
     }
-    if(cell_type == 10){
+    if(cell_type == 10 || cell_type == 5 || cell_type == 6 || cell_type == 7 || cell_type == 4){
         flag = true;
         counter++;
     } 
