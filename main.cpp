@@ -75,7 +75,7 @@ float UP_Y=1;
 float UP_Z=0;
 
 Pacman *player;
-Ghost *ghost1;
+Ghost *ghosts[4];
 
 void keyOperations (void) {  
    if (keyStates['w']) player->changeDirection(0); 
@@ -128,7 +128,9 @@ void init()
    glLoadIdentity();
    glClearColor(0,0,0,0);
    player = new Pacman(600, 0.05, 20, 22);
-   ghost1 = new Ghost(600,0.05, 70,200);
+   for (int i = 0; i < 4; i++){
+      ghosts[i] = new Ghost(600,0.05, 70 * (i+1), 200);
+   }
    srand(time(nullptr));
 }
 
@@ -144,9 +146,12 @@ void display()
    player->draw();
    player->update();
    player->movementConstraints(matrix,HEIGTH, WIDTH);
-   ghost1->draw();
-   ghost1->update();
-   ghost1->movementConstraints(matrix,HEIGTH, WIDTH);
+
+   for (int i = 0; i < 4; i++){
+      ghosts[i]->draw();
+      ghosts[i]->update();
+      ghosts[i]->movementConstraints(matrix,HEIGTH, WIDTH);
+   }
 
    glBindTexture(GL_TEXTURE_2D, texture[0]);
    glBegin(GL_QUADS);
