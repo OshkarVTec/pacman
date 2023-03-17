@@ -1,17 +1,19 @@
 #include "pacman.h"
+#include <vector>
 
-Pacman::Pacman(int dim, float velocity)
+Pacman::Pacman(int dim, float velocity, int pos0, int pos1)
 {
     DimBoard = dim;
     vel = velocity;
     int c;
 
     //Se inicializa una posicion aleatoria dentro del tablero
-    Position[0] = 0;
-    Position[1] = 0;
-    //Se inicializa el vector de direccion con un valor aleatorio
+    Position[0] = pos0;
+    Position[1] = pos1;
+    //Se inicializa el vector de direccion
     Direction[0] = 1;
     Direction[1] = 0;
+    currDir = 1;
     //Se normaliza el vector de direccion
     float m = sqrt(Direction[0]*Direction[0] + Direction[1]*Direction[1]);
     Direction[0] /= m;
@@ -76,14 +78,49 @@ void Pacman::update()
     }
 
     //cout << "X=" << Position[0] << "; Y= " << Position[1] << endl;
+    if(!available[currDir]){
+        Direction[0] = 0;
+        Direction[1] = 0;
+    }
 
 }
 
 void Pacman::changeDirection(int dir){
-   switch(dir){
-      case 0: Direction[0] = 0 * vel; Direction[1] = 1 * vel; break;
-      case 1: Direction[0] = 1 * vel; Direction[1] = 0 * vel; break;
-      case 2: Direction[0] = 0 * vel; Direction[1] = -1 * vel; break;
-      case 3: Direction[0] = -1 * vel; Direction[1] = 0 * vel; break;
-   }
+    if(available[dir]){
+        switch(dir){
+            case 0: Direction[0] = 0 * vel; Direction[1] = 1 * vel; break;
+            case 1: Direction[0] = 1 * vel; Direction[1] = 0 * vel; break;
+            case 2: Direction[0] = 0 * vel; Direction[1] = -1 * vel; break;
+            case 3: Direction[0] = -1 * vel; Direction[1] = 0 * vel; break;
+        }
+        currDir = dir;
+    }
+}
+
+void Pacman::movementConstraints(vector<vector<int>> &matrix, int WIDTH, int  HEIGTH){ //x and y are grid position
+	int x = (Position[1]*matrix.size()/HEIGTH);
+	int y = (Position[0]*matrix[0].size()/WIDTH);
+    //cout << "x: " << Position[1] << " y: " << Position[0] << endl;
+    //cout << matrix[x][y] << endl;
+	switch(matrix[x][y]){
+		case 0: available[0] = true; available[1] = true; available[2] = false; available[3] = false; break;
+        case 1: available[0] = false; available[1] = false; available[2] = true; available[3] = true; break;
+        case 2: available[0] = false; available[1] = true; available[2] = true; available[3] = false; break;
+        case 3: available[0] = true; available[1] = false; available[2] = false; available[3] = true; break;
+        case 4: available[0] = false; available[1] = true; available[2] = true; available[3] = true; break;
+        case 5: available[0] = true; available[1] = true; available[2] = false; available[3] = true; break;
+        case 6: available[0] = true; available[1] = false; available[2] = true; available[3] = true; break;
+        case 7: available[0] = true; available[1] = true; available[2] = true; available[3] = false; break;
+        case 8: available[0] = false; available[1] = true; available[2] = false; available[3] = true; break;
+        case 9: available[0] = true; available[1] = false; available[2] = true; available[3] = false; break;
+        case 10: available[0] = true; available[1] = true; available[2] = true; available[3] = true; break;
+        case 11: available[0] = false; available[1] = false; available[2] = false; available[3] = true; break;
+        case 12: available[0] = false; available[1] = true; available[2] = false; available[3] = false; break;
+	}
+    switch(currDir){
+        case 0: available[2] = true;break;
+        case 1: available[3] = true;break;
+        case 2: available[0] = true;break;
+        case 3: available[1] = true;break;
+    }
 }

@@ -1,22 +1,58 @@
+//g++ main.cpp pacman.cpp RgbImage.cpp -lGL -lGLU -lglut -o output
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
 #endif
-
+#include <bits/stdc++.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <random>
 #include <iomanip>
+#include <vector>
 #include "RgbImage.h"
 #include "pacman.h"
+#include "ghost.h"
+using namespace std;
 
 #define NTextures 2
 GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filenames[NTextures] = {"img/pacmanbg1.bmp","img/kurbo.bmp"};
+char* filenames[NTextures] = {"img/tablero_recortado.bmp","img/kurbo.bmp"};
+
+vector<vector<int>> matrix = {
+{2,8,8,8,8,4,4,8,8,8,8,8,1,-1,2,8,8,8,8,8,4,4,8,8,8,8,1},
+{9,10,8,8,8,10,10,8,8,8,8,10,9,-1,9,10,8,8,8,8,10,10,8,8,8,10,9},
+{9,9,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,9,9,-1,-1,-1,9,9},
+{9,9,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,9,9,-1,-1,-1,9,9},
+{7,10,8,8,8,10,10,8,4,4,8,10,10,8,10,10,8,4,4,8,10,10,8,8,8,10,6},
+{7,10,8,8,8,10,10,8,10,10,8,5,5,8,5,5,8,10,10,8,10,10,8,8,8,10,6},
+{9,9,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,9,9},
+{9,10,8,8,8,10,6,-1,9,10,8,8,1,-1,2,8,8,10,9,-1,7,10,8,8,8,10,9},
+{0,8,8,8,8,8,6,-1,0,8,8,10,9,-1,9,10,8,8,3,-1,7,10,8,8,8,8,3},
+{-1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,9,9,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,9,9,-1,2,8,8,10,10,8,10,10,8,8,1,-1,9,9,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,9,9,-1,9,10,8,5,5,8,5,5,8,10,9,-1,9,9,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1},
+{12,8,8,8,8,10,10,8,10,6,-1,-1,-1,-1,-1,-1,-1,7,10,8,10,10,8,8,8,8,11},
+{12,8,8,8,8,10,10,8,10,6,-1,-1,-1,-1,-1,-1,-1,7,10,8,10,10,8,8,8,8,11},
+{-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,9,9,-1,7,10,8,8,8,8,8,8,8,10,6,-1,9,9,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,9,9,-1,7,10,8,8,8,8,8,8,8,10,6,-1,9,9,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1},
+{2,8,8,8,8,10,10,8,10,10,8,8,1,-1,2,8,8,10,10,8,10,10,8,8,8,8,1},
+{9,10,8,8,8,10,10,8,5,5,8,10,9,-1,9,10,8,5,5,8,10,10,8,8,8,10,9},
+{9,9,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,9,9,-1,-1,-1,9,9},
+{9,10,8,1,-1,7,10,8,4,4,8,10,10,8,10,10,8,4,4,8,10,6,-1,2,8,10,9},
+{0,8,10,9,-1,7,10,8,10,10,8,5,5,8,5,5,8,10,10,8,10,6,-1,9,10,8,3},
+{-1,-1,9,9,-1,9,9,-1,9,9,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,-1,9,9,-1,-1},
+{2,8,10,10,8,10,9,-1,9,10,8,8,1,-1,2,8,8,10,9,-1,9,10,8,10,10,8,1},
+{9,10,5,5,8,8,3,-1,0,8,8,10,9,-1,9,10,8,8,3,-1,0,8,8,5,5,10,9},
+{9,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,-1,-1,-1,-1,-1,-1,-1,-1,-1,9,9},
+{9,10,8,8,8,8,8,8,8,8,8,10,10,8,10,10,8,8,8,8,8,8,8,8,8,10,9},
+{0,8,8,8,8,8,8,8,8,8,8,5,5,8,5,5,8,8,8,8,8,8,8,8,8,8,3}};
 
 
 //Variables dimensiones de la pantalla
@@ -39,12 +75,15 @@ float UP_Y=1;
 float UP_Z=0;
 
 Pacman *player;
+Ghost *ghosts[4];
 
 void keyOperations (void) {  
    if (keyStates['w']) player->changeDirection(0); 
    if (keyStates['d']) player->changeDirection(1); 
-   if (keyStates['s']) player->changeDirection(2);
-   if (keyStates['a']) player->changeDirection(3);
+   if (keyStates['s']) player->changeDirection(2); 
+   if (keyStates['a']) player->changeDirection(3); 
+
+
 }  
 
 void loadTextureFromFile(char *filename, int id)
@@ -72,9 +111,10 @@ void loadTextureFromFile(char *filename, int id)
 
 void init()
 {
+   reverse(matrix.begin(), matrix.end()); //Map to the position
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluOrtho2D(-300,300,-300,300);
+   gluOrtho2D(0,600,0,600);
 
    //Texture
    for (int i = 0; i < NTextures; i++){
@@ -87,7 +127,10 @@ void init()
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
    glClearColor(0,0,0,0);
-   player = new Pacman(300, 0.05);
+   player = new Pacman(600, 0.05, 20, 22);
+   for (int i = 0; i < 4; i++){
+      ghosts[i] = new Ghost(600,0.05, 70 * (i+1), 200);
+   }
    srand(time(nullptr));
 }
 
@@ -102,21 +145,28 @@ void display()
 
    player->draw();
    player->update();
+   player->movementConstraints(matrix,HEIGTH, WIDTH);
+
+   for (int i = 0; i < 4; i++){
+      ghosts[i]->draw();
+      ghosts[i]->update();
+      ghosts[i]->movementConstraints(matrix,HEIGTH, WIDTH);
+   }
 
    glBindTexture(GL_TEXTURE_2D, texture[0]);
    glBegin(GL_QUADS);
    glColor3f(1.0, 1.0, 1.0);
    glTexCoord2f(0.0, 0.0);
-   glVertex3f(-300.0, -300.0, 0.0);
+   glVertex3f(0.0, 0.0, 0.0);
 
    glTexCoord2f(0.0, 1.0);
-   glVertex3f(-300.0, 300.0, 0.0);
+   glVertex3f(0.0, 600.0, 0.0);
 
    glTexCoord2f(1.0, 1.0);
-   glVertex3f(300.0, 300.0, 0.0);
+   glVertex3f(600.0, 600.0, 0.0);
 
    glTexCoord2f(1.0, 0.0);
-   glVertex3f(300.0, -300.0, 0.0);
+   glVertex3f(600.0, 0.0, 0.0);
 
    glEnd();
 
@@ -139,6 +189,7 @@ void keyUp (unsigned char key, int x, int y) {
 
 int main(int argc, char **argv)
 {
+   srand((unsigned) time(NULL));
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
    glutInitWindowPosition(100, 100);
