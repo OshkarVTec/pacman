@@ -1,4 +1,4 @@
-//g++ main.cpp pacman.cpp RgbImage.cpp -lGL -lGLU -lglut -o output
+//g++ main.cpp pacman.cpp ghost.cpp RgbImage.cpp -lGL -lGLU -lglut -o output
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
