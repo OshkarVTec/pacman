@@ -15,12 +15,12 @@
 #include "ghost.h"
 using namespace std;
 
-#define NTextures 2
+#define NTextures 3
 GLuint	texture[NTextures];
 
 bool* keyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)  
 
-char* filenames[NTextures] = {"img/tablero_recortado.bmp","img/kurbo.bmp"};
+char* filenames[NTextures] = {"img/tablero_recortado.bmp","img/kurbo.bmp","img/clyde.bmp"};
 
 vector<vector<int>> matrix = {
 {2,8,8,8,8,4,4,8,8,8,8,8,1,-1,2,8,8,8,8,8,4,4,8,8,8,8,1},
@@ -146,6 +146,8 @@ void display()
    player->draw();
    player->update();
    player->movementConstraints(matrix,HEIGTH, WIDTH);
+
+   glBindTexture(GL_TEXTURE_2D, texture[2]);
 
    for (int i = 0; i < 4; i++){
       ghosts[i]->draw();
